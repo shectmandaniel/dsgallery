@@ -1,6 +1,6 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
-import { getMyImages } from "~/server/db/queeries";
+import { getMyImages } from "~/server/db/queries";
 import Image from "next/image";
 
 export const dynamic = "force-dynamic";
@@ -8,16 +8,18 @@ export const dynamic = "force-dynamic";
 async function Images() {
   const images = await getMyImages();
   return (
-    <div className="flex flex-wrap gap-4 justify-center">
+    <div className="flex flex-wrap justify-center gap-4">
       {images.map((image) => (
         <div key={image.id} className="size-48">
-          <Image
-            src={image.url}
-            alt={image.name}
-            width={192}
-            height={192}
-            className="size-full object-cover rounded-md"
-          />
+          <Link href={`/img/${image.id}`}>
+            <Image
+              src={image.url}
+              alt={image.name}
+              width={192}
+              height={192}
+              className="size-full rounded-md object-cover"
+            />
+          </Link>
         </div>
       ))}
     </div>
@@ -26,7 +28,7 @@ async function Images() {
 
 export default async function HomePage() {
   return (
-    <main className="">
+    <main>
       <SignedOut>
         <div className="h-full w-full p-3 text-center text-2xl">
           Please Sign in above
