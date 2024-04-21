@@ -9,6 +9,10 @@ const config = {
   images: {
     remotePatterns: [{ hostname: "utfs.io" }],
   },
+  reactStrictMode: false,
+  experimental: {
+    staticWorkerRequestDeduping: true
+  }
 };
 
 export default config;
